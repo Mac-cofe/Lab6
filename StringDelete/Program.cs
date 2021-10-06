@@ -12,13 +12,13 @@ namespace StringDelete
         {
             Console.WriteLine("Введите строку символов, кроме букв или цифр используйте { и }");
             String startText = Console.ReadLine();
-            String itogText = "";
+            String itogText = startText;
             int kol_a = 0;   //количество {
             int kol_b = 0;   //количество }
             int first = 0;   // позиция первой {
             int last = 0;    // позиция первой }
             int count = 0;   // количество символов между { }
-            foreach (char c in startText) // проверяем есть ли { } и сколько их
+            foreach (char c in itogText) // проверяем есть ли { } и сколько их
             {
                 if (c == '{')
                     kol_a++;
@@ -32,15 +32,17 @@ namespace StringDelete
             else
             {
                 Console.WriteLine("В данной строке {{ - {0} , а }} - {1}", kol_a, kol_b);
-                first = startText.IndexOf("{");
-                last = startText.IndexOf("}");
-                if (last > 0)
+                do
                 {
-                    count = last - first;
-                    itogText = startText.Remove(first, count + 1);
+                    first = itogText.IndexOf("{");
+                    last = itogText.IndexOf("}");
+                    if (last > 0)
+                    {
+                        count = last - first;
+                        itogText = itogText.Remove(first, count + 1);
+                    }
                 }
-                else
-                    itogText = startText;
+                while (first > 0 && last > 0);
                 Console.WriteLine("Исходная строка - {0}", startText);
                 Console.WriteLine("Итоговая строка - {0}", itogText);
             }
